@@ -29,30 +29,28 @@ public class Monde {
 		return carte_P;
 	}
 
-	public Monde(int x, int y, int nb_A) {//Initialisation de la liste des agents à mettre dans le monde
+	public Monde(int x, int y, int nb_Ag,int nb_Ab) {//Initialisation de la liste des agents à mettre dans le monde
 		dx=x;
 		dy=y;
-		for (int i=0;i<nb_A;i++) {
-			double p = Math.random();
-			if (p <= 0.4) {
+		for (int i=0;i<nb_Ag;i++) {
+			double p1 =  Math.random();
+			if (p1 <= 0.5) {
 				int x1= (int) (Math.random()*dx);
 				int y1 =(int) (Math.random()*dy);
-				Arbre arbres = new Arbre(x1, y1);
-				carte_Ab.add(arbres);
+				M1 monstre = new M1(x1, y1);
+				carte_Ag.add(monstre);
 			}else {
-				double p1 =  Math.random();
-				if (p1 <= 0.5) {
-					int x1= (int) (Math.random()*dx);
-					int y1 =(int) (Math.random()*dy);
-					M1 monstre = new M1(x1, y1);
-					carte_Ag.add(monstre);
-				}else {
-					int x1= (int) (Math.random()*dx);
-					int y1 =(int) (Math.random()*dy);
-					M2 monstre = new M2(x1, y1);
-					carte_Ag.add(monstre);
-				}
+				int x1= (int) (Math.random()*dx);
+				int y1 =(int) (Math.random()*dy);
+				M2 monstre = new M2(x1, y1);
+				carte_Ag.add(monstre);
 			}
+		}
+		for (int i=0;i<nb_Ab;i++) {
+			int x1= (int) (Math.random()*dx);
+			int y1 =(int) (Math.random()*dy);
+			Arbre arbres = new Arbre(x1, y1);
+			carte_Ab.add(arbres);
 		}
 		/*
 		carte_Ag.add(new M1(10,10));

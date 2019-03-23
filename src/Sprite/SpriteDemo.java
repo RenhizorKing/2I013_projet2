@@ -265,11 +265,11 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 		for ( int i = a1 ; i < wx ; i++ ) {
 			for ( int j = a2 ; j < wy ; j++ ) {
 					try{
+						g2.drawImage(grassSprite,spriteLength*(i-a1),spriteLength*(j-a2),spriteLength,spriteLength, frame);
 					if (Terrain.getTerrain()[i][j][1] <=-15)
 						g2.drawImage(terreSprite,spriteLength*(i-a1),spriteLength*(j-a2),spriteLength,spriteLength, frame);
-					else
-						g2.drawImage(grassSprite,spriteLength*(i-a1),spriteLength*(j-a2),spriteLength,spriteLength, frame);
-			
+					if (Terrain.getTerrain()[i][j][1] >=15)
+						g2.drawImage(waterSprite,spriteLength*(i-a1),spriteLength*(j-a2),spriteLength,spriteLength, frame);
 					for (int a=0;a<Monde.getcarte_Ab().size();a++) {
 						if (Monde.getcarte_Ab().get(a).getX()==i && Monde.getcarte_Ab().get(a).getY()==j) {
 							if (Monde.getcarte_Ab().get(a).isEnfeu())
@@ -519,7 +519,7 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
     } 
 	
 	public static void main(String[] args) {
-		Monde monde = new Monde(dx=15,dy=15,20);
+		Monde monde = new Monde(dx=15,dy=15,10,50);
 		SpriteDemo a =new SpriteDemo();
 		Terrain terrain= new Terrain(dx,dy);
 		//System.exit(0);
