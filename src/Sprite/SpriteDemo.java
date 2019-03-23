@@ -264,7 +264,8 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 		Graphics2D g2 = (Graphics2D)g;
 		for ( int i = a1 ; i < wx ; i++ ) {
 			for ( int j = a2 ; j < wy ; j++ ) {
-					if (Terrain.getTerrain()[i-a1][j-a2] <=-15)
+					try{
+					if (Terrain.getTerrain()[i][j] <=-15)
 						g2.drawImage(terreSprite,spriteLength*(i-a1),spriteLength*(j-a2),spriteLength,spriteLength, frame);
 					else
 						g2.drawImage(grassSprite,spriteLength*(i-a1),spriteLength*(j-a2),spriteLength,spriteLength, frame);
@@ -276,6 +277,9 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 							else
 								g2.drawImage(tSprite,spriteLength*(i-a1),spriteLength*(j-a2),spriteLength,spriteLength, frame);
 						}
+					}
+					}catch(Exception E) {
+						
 					}
 					for (int p=0;p<Monde.getcarte_P().size();p++) {
 						if (Monde.getcarte_P().get(p).getX()==i && Monde.getcarte_P().get(p).getY()==j) {
@@ -423,7 +427,7 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 			}
 		}
 		if (source == KeyEvent.VK_D) {
-			if ((wx-a1)*spriteLength > this.getBounds().width+(a1+1)*spriteLength) {
+			if ((wx-a1)*spriteLength >= this.getBounds().width+(a1+1)*spriteLength) {
 				a1+=1;
 				wx+=1;				
 			}
@@ -529,17 +533,9 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 		step = 0;
 		while(true) {
 			try {
-			if(pas < 7) {
-				a.repaint();
-	            pas += 1;
-			}
-			else {
-				a.repaint();
-				pas = 0;
-			}
 			if(cpt_pas % 8 == 0) {
 				monde.pomme_pop(step);
-				System.out.println(""+Monde.getcarte_P().size());
+				//System.out.println(""+Monde.getcarte_P().size());
 				Pomme.duree();
 				Pomme.delete();
 				monde.Refresh();
@@ -551,6 +547,14 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 				monde.depart_feu();
 				monde.propagation_F();
 				monde.enfeu();
+			}
+			if(pas < 7) {
+				a.repaint();
+				pas += 1;
+			}
+			else {
+				a.repaint();
+				pas = 0;
 			}
 			marcher += 5 ;
 			//Braconnier.chasser();
