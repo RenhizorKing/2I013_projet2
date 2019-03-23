@@ -265,7 +265,7 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 		for ( int i = a1 ; i < wx ; i++ ) {
 			for ( int j = a2 ; j < wy ; j++ ) {
 					try{
-					if (Terrain.getTerrain()[i][j] <=-15)
+					if (Terrain.getTerrain()[i][j][1] <=-15)
 						g2.drawImage(terreSprite,spriteLength*(i-a1),spriteLength*(j-a2),spriteLength,spriteLength, frame);
 					else
 						g2.drawImage(grassSprite,spriteLength*(i-a1),spriteLength*(j-a2),spriteLength,spriteLength, frame);
@@ -331,6 +331,7 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 									g2.drawImage(PokemonFeuEvolueMove[1][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) - SpriteDemo.marcher,spriteLength,spriteLength, frame);
 								}
 							}
+							continue;
 						}
 
 						if (array_m.get(m) instanceof M2 && ((M2)array_m.get(m)).getX()==i && ((M2)array_m.get(m)).getY()==j) {
@@ -369,6 +370,7 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 									g2.drawImage(PokemonEauEvolueMove[1][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) - SpriteDemo.marcher,spriteLength,spriteLength, frame);
 								}
 							}
+							continue;
 						}
 					
 						
@@ -517,7 +519,7 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
     } 
 	
 	public static void main(String[] args) {
-		Monde monde = new Monde(dx=15,dy=15,10);
+		Monde monde = new Monde(dx=15,dy=15,20);
 		SpriteDemo a =new SpriteDemo();
 		Terrain terrain= new Terrain(dx,dy);
 		//System.exit(0);
@@ -532,10 +534,16 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 		marcher = 0;
 		step = 0;
 		while(true) {
-			try {
+			if(pas < 7) {
+				a.repaint();
+	            pas += 1;
+			}
+			else {
+				a.repaint();
+				pas = 0;
+			}
 			if(cpt_pas % 8 == 0) {
 				monde.pomme_pop(step);
-				//System.out.println(""+Monde.getcarte_P().size());
 				Pomme.duree();
 				Pomme.delete();
 				monde.Refresh();
@@ -548,20 +556,8 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 				monde.propagation_F();
 				monde.enfeu();
 			}
-			if(pas < 7) {
-				a.repaint();
-				pas += 1;
-			}
-			else {
-				a.repaint();
-				pas = 0;
-			}
 			marcher += 5 ;
 			//Braconnier.chasser();
-			}catch(Exception E) {
-				E.printStackTrace();
-				System.exit(0);
-			}
 			try{
 				Thread.sleep(a.vitesse); // en ms
 			}catch(Exception e){

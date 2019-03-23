@@ -60,20 +60,22 @@ public class M2 extends M{
 		int cpt=0;
 		int tab_A[] = new int[4];
 		for (int i=0;i<Monde.getcarte_Ab().size();i++) {
+			
 			if (Monde.getcarte_Ab().get(i).getX()==this.x-1 && Monde.getcarte_Ab().get(i).getY()==this.y) {
+				tab_A[0]=i;
 				cpt+=1;
-				tab_A[cpt]=i;
 			}
 			if (Monde.getcarte_Ab().get(i).getX()==this.x+1 && Monde.getcarte_Ab().get(i).getY()==this.y) {
+				tab_A[1]=i;
 				cpt+=1;
-				tab_A[cpt]=i;
 			}
 			if (Monde.getcarte_Ab().get(i).getX()==this.x && Monde.getcarte_Ab().get(i).getY()==this.y+1) {
+				tab_A[2]=i;
 				cpt+=1;
-				tab_A[cpt]=i;
 			}
 			if (Monde.getcarte_Ab().get(i).getX()==this.x && Monde.getcarte_Ab().get(i).getY()==this.y-1) {
-				tab_A[cpt]=i;				
+				tab_A[3]=i;
+				cpt+=1;
 			}
 		}
 		if (cpt == 4) {
@@ -82,6 +84,8 @@ public class M2 extends M{
 			Monde.getcarte_Ab().get(tab_A[2]).setEnfeu(true);
 			Monde.getcarte_Ab().get(tab_A[3]).setEnfeu(true);
 			Monde.getcarte_Ag().remove(this);
+			System.out.println("R");
+			System.out.println(""+Monde.getcarte_Ag().size());
 			return ;
 		}
 		
@@ -105,10 +109,12 @@ public class M2 extends M{
 			
 		}
 		int x1,y1;
-		//do {
-			this.sens = (int)(Math.random()*4);
+		boolean boolA=false;
+		do {
+			boolA=false;
 			x1=this.x;
 			y1=this.y;
+			this.sens = (int)(Math.random()*4);
 			if (this.sens == 0) {
 				x1=(x1-1+Monde.getDx())%Monde.getDx();
 			}
@@ -121,8 +127,15 @@ public class M2 extends M{
 			if (this.sens == 3) {
 				y1=(y1-1+Monde.getDy())%Monde.getDy();
 			}
-		//}while(Monde.testC(x1, y1,Mobs.Arbre.class).size() ==1);
-}
+			for (int i=0;i<Monde.getcarte_Ab().size();i++) {
+				if (Monde.getcarte_Ab().get(i).getX() == x1 && Monde.getcarte_Ab().get(i).getY() == y1) {
+					boolA=true;
+					break;
+				}
+			}
+		}while (boolA);
+	}
+	
 	public int getSens() {
 		return this.sens;
 	}

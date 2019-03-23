@@ -12,9 +12,9 @@ import Mobs.Pomme;
 public class Monde {
 	private static int dx;
 	private static int dy;
-	private static ArrayList<Object> carte_Ag = new ArrayList<>();
-	private static ArrayList<Arbre> carte_Ab = new ArrayList<>();
-	private static ArrayList<Pomme> carte_P = new ArrayList<>();
+	private static ArrayList<Object> carte_Ag =new ArrayList<>();
+	private static ArrayList<Arbre> carte_Ab=new ArrayList<>();
+	private static ArrayList<Pomme> carte_P=new ArrayList<>();
 	private static int direction;
 	private int cpt = 0;
 	
@@ -55,23 +55,34 @@ public class Monde {
 			}
 		}
 		/*
-		carte_A.add(new M1(10,10));
-		carte_A.add(new Arbre(11,10));
-		carte_A.add(new Arbre(10,9));
-		carte_A.add(new Arbre(10,11));*/
-		//carte_Ab.add(new Arbre(9,10));
+		carte_Ag.add(new M1(10,10));
+		carte_Ab.add(new Arbre(11,10));
+		carte_Ab.add(new Arbre(9,10));
+		carte_Ab.add(new Arbre(10,9));
+		carte_Ab.add(new Arbre(10,11));*/
+		for (int i=0;i<carte_Ag.size();i++) {
+			if (carte_Ag.get(i) instanceof M1)	
+				((M1) carte_Ag.get(i)).setSens();
+		}
 		//carte_Ag.add(new M1(6,6));
 		//carte_Ag.add(new M2(5,5));
 	}
 	
 	public void pomme_pop(int cpt) { //fait apparaitre des pomme sur la carte_A
 		if (cpt % 2 == 0) {
-			int x1;
-			int y1;
-			//------------
-			x1= (int) (Math.random()*dx);
-			y1 =(int) (Math.random()*dy);
-			//-------------
+			int x1,y1;
+			boolean bool_A;
+			do {
+				bool_A=false;
+				x1= (int) (Math.random()*Monde.getDx());
+				y1 =(int) (Math.random()*Monde.getDy());
+				for (int i=0;i<Monde.getcarte_Ab().size();i++) {
+					if (Monde.getcarte_Ab().get(i).getX() == x1 && Monde.getcarte_Ab().get(i).getY() == y1) {
+						bool_A=true;
+						break;
+					}
+				}
+			}while(bool_A);
 			Pomme apple = new Pomme(x1, y1);
 			carte_P.add(apple);
 		}

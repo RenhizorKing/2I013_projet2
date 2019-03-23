@@ -7,7 +7,7 @@ public class Pomme{
 	private int y;
 	private int step;
 	private boolean estPourrie;
-	private static int delaiP=10;
+	private static int delaiP=30;
 	public Pomme(int x, int y) {
 		this.x = x;
 		this.y = y;
