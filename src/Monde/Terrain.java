@@ -16,7 +16,7 @@ public class Terrain {
 		for (int i=0;i<dx;i++) {
 			for (int j=0;j<dy;j++) {
 				terrain[i][j][0]=0;
-				terrain[i][j][1]=((int) (100*(Bruit.Get2DPerlinNoiseValue(i,j,100)+1)/2));
+				terrain[i][j][1]=((int) (100*(Bruit.Get2DPerlinNoiseValue(i,j,500)+1)/2));
 			}
 		}
 		

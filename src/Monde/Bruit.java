@@ -142,7 +142,7 @@ public class Bruit {
 		try {
 		for (int i=0;i<10;i++){
 			for (int j=0;j<10;j++){
-					System.out.print(""+((int) (100*(Get2DPerlinNoiseValue(i,j,100)+1)/2))+" ");
+					System.out.print(""+((int) (100*(Get2DPerlinNoiseValue(i,j,500)+1)/2))+" ");
 			}
 			System.out.println();
 		}
