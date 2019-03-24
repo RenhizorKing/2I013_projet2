@@ -16,17 +16,18 @@ public class Terrain {
 		for (int i=0;i<dx;i++) {
 			for (int j=0;j<dy;j++) {
 				terrain[i][j][0]=0;
-				terrain[i][j][1]=0;
+				terrain[i][j][1]=((int) (100*(Bruit.Get2DPerlinNoiseValue(i,j,100)+1)/2));
 			}
 		}
+		
 	}
 	public int cpt;
 	public void Stockage_passage() {
 		for (int i=0;i<Monde.getcarte_Ag().size();i++) {
-			if (Monde.getcarte_Ag().get(i) instanceof M1)
-				terrain[((M) Monde.getcarte_Ag().get(i)).getX()][((M) Monde.getcarte_Ag().get(i)).getY()][1]-=1;
-			if (Monde.getcarte_Ag().get(i) instanceof M2)
-				terrain[((M) Monde.getcarte_Ag().get(i)).getX()][((M) Monde.getcarte_Ag().get(i)).getY()][1]+=1;
+//			if (Monde.getcarte_Ag().get(i) instanceof M1)
+//				//terrain[((M) Monde.getcarte_Ag().get(i)).getX()][((M) Monde.getcarte_Ag().get(i)).getY()][1]-=1;
+//			if (Monde.getcarte_Ag().get(i) instanceof M2)
+//				terrain[((M) Monde.getcarte_Ag().get(i)).getX()][((M) Monde.getcarte_Ag().get(i)).getY()][1]+=1;
 		}
 	}
 	public void afficher() {

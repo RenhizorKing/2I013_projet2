@@ -266,9 +266,9 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 			for ( int j = a2 ; j < wy ; j++ ) {
 					try{
 						g2.drawImage(grassSprite,spriteLength*(i-a1),spriteLength*(j-a2),spriteLength,spriteLength, frame);
-					if (Terrain.getTerrain()[i][j][1] <=-15)
+					if (Terrain.getTerrain()[i][j][1] < 50)
 						g2.drawImage(terreSprite,spriteLength*(i-a1),spriteLength*(j-a2),spriteLength,spriteLength, frame);
-					if (Terrain.getTerrain()[i][j][1] >=15)
+					if (Terrain.getTerrain()[i][j][1] >= 50)
 						g2.drawImage(waterSprite,spriteLength*(i-a1),spriteLength*(j-a2),spriteLength,spriteLength, frame);
 					for (int a=0;a<Monde.getcarte_Ab().size();a++) {
 						if (Monde.getcarte_Ab().get(a).getX()==i && Monde.getcarte_Ab().get(a).getY()==j) {
@@ -519,7 +519,7 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
     } 
 	
 	public static void main(String[] args) {
-		Monde monde = new Monde(dx=15,dy=15,10,50);
+		Monde monde = new Monde(dx=50,dy=50,30,30);
 		SpriteDemo a =new SpriteDemo();
 		Terrain terrain= new Terrain(dx,dy);
 		//System.exit(0);
@@ -552,7 +552,7 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 				terrain.Stockage_passage();
 				Monde.grandir();
 				//M.reproduction();
-				monde.depart_feu();
+				//monde.depart_feu();
 				monde.propagation_F();
 				monde.enfeu();
 			}
