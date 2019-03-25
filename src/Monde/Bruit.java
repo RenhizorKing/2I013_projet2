@@ -1,6 +1,7 @@
 package Monde;
 
 import java.awt.image.ImageObserver;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -8,26 +9,24 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import com.sun.prism.paint.Color;
-
-import javafx.scene.image.Image;
 
 public class Bruit {
-	public static int [][] a;
+	public static int [][] monT;
 	static BufferedImage bruit;
 	
-	public Bruit(){
+	public Bruit(int dx,int dy,int pic){
+		bruit_P(dx, dy,pic);
 		try {
-			bruit = ImageIO.read(new File("PERLINNOISE.jpeg"));
-			a=new int[220][220];
-			for (int i=0;i<bruit.getWidth();i++){
-				for (int j=0;j<bruit.getHeight();j++){
-					    a[i][j]=(bruit.getRGB(i, j) & 0x000000ff )/20;
-						//System.out.print(""+(bruit.getRGB(i, j) & 0x000000ff )/20+" ");
-				}
-				System.out.println();
-			}
-		} catch (IOException e) {
+//			bruit = ImageIO.read(new File("PERLINNOISE.jpeg"));
+//			a=new int[220][220];
+//			for (int i=0;i<bruit.getWidth();i++){
+//				for (int j=0;j<bruit.getHeight();j++){
+//					    a[i][j]=(bruit.getRGB(i, j) & 0x000000ff )/20;
+//						//System.out.print(""+(bruit.getRGB(i, j) & 0x000000ff )/20+" ");
+//				}
+//				System.out.println();
+//			}
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -150,20 +149,120 @@ public class Bruit {
 	}
 	
 	public static int bruitI(int x,int y, Image image) {
-		//int [][] bruit = new int[(int) image.getWidth()][(int) image.getHeight()];
-//			for (int i=0;i<bruit.getWidth();i++){
-//				for (int j=0;j<bruit.getHeight();j++){
-//					    //a[i][j]=(bruit.getRGB(i, j) & 0x000000ff )/20;
-//						System.out.print(""+(bruit.getRGB(i, j) & 0x000000ff )/20+" ");
-//				}
-//				System.out.println();
-//			}
-			//System.out.println(""+a[0][0]);
-			return a[x][y];
+		return monT[x][y];
+	}
+	
+	public static int bruit_P(int dx,int dy,int pic) {
+		//Bruit.a=new int[dx][dy];
+		monT=new int[dx][dy];
+		for (int i=0;i<dx;i++) {
+			for (int j=0;j<dy;j++) {
+				monT[i][j]=0;
+			}
+		}
+		
+		for (int i=0;i<pic;i++) {
+			int x1=((int) (Math.random()*dx));
+			int x2=((int) (Math.random()*dy));
+			monT[x1][x2]=3;
+		}
+		int[][] monT2 = copy_T(monT, dx, dy);
+		for (int i=0;i<dx;i++) {
+			for (int j=0;j<dy;j++) {
+				if (monT[i][j]==3) {
+					int cpt1=0;
+					for (int i1=(i-1+dx)%dx;cpt1<3;cpt1++) {
+						int cpt2=0;
+						for (int j1=(j-1+dy)%dy;cpt2<3;cpt2++) {
+							if (monT[(i1+cpt1)%dx][(j1+cpt2)%dy] < monT[i][j]) {
+								if (Math.random()<0.5)
+									monT2[(i1+cpt1+dx)%dx][(j1+cpt2+dy)%dy]=3;
+							}
+						}
+					}
+					monT2[i][j]=3;
+				}
+			}
+		}
+		monT=copy_T(monT2, dx, dy);
+		for (int i=0;i<dx;i++) {
+			for (int j=0;j<dy;j++) {
+				if (monT[i][j]==3) {
+					int cpt1=0;
+					for (int i1=(i-1+dx)%dx;cpt1<3;cpt1++) {
+						int cpt2=0;
+						for (int j1=(j-1+dy)%dy;cpt2<3;cpt2++) {
+							if (monT[(i1+cpt1)%dx][(j1+cpt2)%dy] < monT[i][j]) {
+									monT2[(i1+cpt1+dx)%dx][(j1+cpt2+dy)%dy]=2;
+							}
+						}
+					}
+					monT2[i][j]=3;
+				}
+			}
+		}
+		monT=lissage(dx, dy);
+		monT=copy_T(monT2, dx, dy);
+		for (int i=0;i<dx;i++) {
+			for (int j=0;j<dy;j++) {
+				if (monT[i][j]==2) {
+					int cpt1=0;
+					for (int i1=(i-1+dx)%dx;cpt1<3;cpt1++) {
+						int cpt2=0;
+						for (int j1=(j-1+dy)%dy;cpt2<3;cpt2++) {
+							if (monT[(i1+cpt1)%dx][(j1+cpt2)%dy] < monT[i][j])
+								monT[(i1+cpt1+dx)%dx][(j1+cpt2+dy)%dy]=1;
+						}
+					}
+					monT[i][j]=2;
+				}
+			}
+		}
+	return 0;
+	}
+	public static int[][] copy_T(int[][] tab,int dx,int dy) {
+		int[][] t = new int[dx][dy];
+		for (int x=0;x<dx;x++) {
+			for (int y=0;y<dy;y++) {
+				t[x][y]=tab[x][y];
+			}
+		}
+		return t;
+	}
+	public static int[][] lissage(int dx, int dy) {
+		int[][] t= copy_T(monT, dx, dy);
+		for (int i=0;i<dx;i++) {
+			for (int j=0;j<dy;j++) {
+				int cpt1=0;
+				int cpt=0;
+				for (int i1=(i-1+dx)%dx;cpt1<3;cpt1++) {
+					int cpt2=0;
+					for (int j1=(j-1+dy)%dy;cpt2<3;cpt2++) {
+						if (monT[i][j]==monT[i1][j1]) {
+							System.out.print(""+monT[i][j]+" "+monT[i1][j1]+"| ");
+							cpt+=1;
+						}
+					}
+					System.out.println("");
+				}
+				if (cpt==2) {
+					System.out.println("123--");
+					t[i][j]=Math.max(0,t[i][j]-1);
+				}
+			}
+		}
+		return t;
 	}
 	
 	public static void main(String[] args) {
-		Bruit toto = new Bruit();
+		Bruit toto = new Bruit(15,15,2);
+		//bruit_P(15,15);
+		for (int i=0;i<15;i++) {
+			for (int j=0;j<15;j++) {
+				System.out.print(""+Bruit.monT[i][j]);				
+			}
+			System.out.println("");
+		}
 		//System.exit(0);
 		/*List<Integer> arrlist = new ArrayList<Integer>();
 		//arrlist.add('a');
@@ -184,12 +283,12 @@ public class Bruit {
 		Collections.shuffle(arrlist);
 		System.exit(0);*/
 		//System.out.print(""+(bruitI(0, 0,null)+" "));
-		for (int i=0;i<220;i++){
-			for (int j=0;j<220;j++){
-				   System.out.print(""+bruitI(i, j, null)+" "); 
-			}
-			System.out.println();
-		}
+//		for (int i=0;i<10;i++){
+//			for (int j=0;j<10;j++){
+//				   System.out.print(""+bruitI(i, j, null)+" "); 
+//			}
+//			System.out.println();
+		//}
 		//System.out.println(""+bruitI(0, 0, null));
 	}
 }

@@ -267,9 +267,9 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 			for ( int j = a2 ; j < wy ; j++ ) {
 					try{
 						g2.drawImage(terreSprite,spriteLength*(i-a1),spriteLength*(j-a2),spriteLength,spriteLength, frame);
-					if (Bruit.bruitI(i, j,null) >7)
+					if (Bruit.bruitI(i, j,null) >2)
 						g2.drawImage(grassSprite,spriteLength*(i-a1),spriteLength*(j-a2),spriteLength,spriteLength, frame);
-					if (Bruit.bruitI(i, j,null) < 7)
+					if (Bruit.bruitI(i, j,null) < 2)
 						g2.drawImage(waterSprite,spriteLength*(i-a1),spriteLength*(j-a2),spriteLength,spriteLength, frame);
 					for (int a=0;a<Monde.getcarte_Ab().size();a++) {
 						if (Monde.getcarte_Ab().get(a).getX()==i && Monde.getcarte_Ab().get(a).getY()==j) {
@@ -520,12 +520,11 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
     } 
 	
 	public static void main(String[] args) {
-		Monde monde = new Monde(dx=220,dy=220,100,100);
+		Monde monde = new Monde(dx=30,dy=18,30,30);
 		SpriteDemo a =new SpriteDemo();
 		Terrain terrain= new Terrain(dx,dy);
-		Bruit toto = new Bruit();
-		//System.exit(0);
-        a.addKeyListener(a);
+		Bruit toto = new Bruit(dx,dy,10);
+		a.addKeyListener(a);
         a.addMouseListener(a);
         a.addMouseWheelListener(a);
         a.setFocusable(true);
