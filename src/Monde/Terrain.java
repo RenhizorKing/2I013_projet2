@@ -5,18 +5,18 @@ import Mobs.M1;
 import Mobs.M2;
 
 public class Terrain {
-	private static int[][][] terrain;
+	private static double[][][] terrain;
 	private int dx;
 	private int dy;
 	
 	public Terrain(int dx,int dy) {
 		this.dx=dx;
 		this.dy=dy;
-		terrain = new int[dx][dy][2];
+		terrain = new double[dx][dy][2];
 		for (int i=0;i<dx;i++) {
 			for (int j=0;j<dy;j++) {
 				terrain[i][j][0]=0;
-				terrain[i][j][1]=((int) (100*(Bruit.Get2DPerlinNoiseValue(i,j,500)+1)/2));
+				terrain[i][j][1]=(Bruit.Get2DPerlinNoiseValue(i,j,500));
 			}
 		}
 		
@@ -38,7 +38,7 @@ public class Terrain {
 			System.out.println("");
 		}
 	}
-	public static int[][][] getTerrain() {
+	public static double[][][] getTerrain() {
 		return terrain;
 	}
 	
