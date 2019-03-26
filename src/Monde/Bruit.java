@@ -149,7 +149,7 @@ public class Bruit {
 	}
 	
 	public static int bruitI(int x,int y, Image image) {
-		return monT[x][y];
+		return monT[y][x];
 	}
 	
 	public static int bruit_P(int dx,int dy,int pic) {
@@ -160,31 +160,34 @@ public class Bruit {
 				monT[i][j]=0;
 			}
 		}
-		
 		for (int i=0;i<pic;i++) {
 			int x1=((int) (Math.random()*dx));
 			int x2=((int) (Math.random()*dy));
 			monT[x1][x2]=3;
 		}
 		int[][] monT2 = copy_T(monT, dx, dy);
-		for (int i=0;i<dx;i++) {
-			for (int j=0;j<dy;j++) {
-				if (monT[i][j]==3) {
-					int cpt1=0;
-					for (int i1=(i-1+dx)%dx;cpt1<3;cpt1++) {
-						int cpt2=0;
-						for (int j1=(j-1+dy)%dy;cpt2<3;cpt2++) {
-							if (monT[(i1+cpt1)%dx][(j1+cpt2)%dy] < monT[i][j]) {
-								if (Math.random()<0.5)
-									monT2[(i1+cpt1+dx)%dx][(j1+cpt2+dy)%dy]=3;
+		int cpt=0;
+		do {
+			for (int i=0;i<dx;i++) {
+				for (int j=0;j<dy;j++) {
+					if (monT[i][j]==3) {
+						int cpt1=0;
+						for (int i1=(i-1+dx)%dx;cpt1<3;cpt1++) {
+							int cpt2=0;
+							for (int j1=(j-1+dy)%dy;cpt2<3;cpt2++) {
+								if (monT[(i1+cpt1)%dx][(j1+cpt2)%dy] < monT[i][j]) {
+									if (Math.random()<0.5)
+										monT2[(i1+cpt1+dx)%dx][(j1+cpt2+dy)%dy]=3;
+								}
 							}
 						}
+						monT2[i][j]=3;
 					}
-					monT2[i][j]=3;
 				}
 			}
-		}
-		monT=copy_T(monT2, dx, dy);
+			monT=copy_T(monT2, dx, dy);
+			cpt++;
+		}while((Math.random()<0.85 || cpt<5) && cpt<dx/10);
 		for (int i=0;i<dx;i++) {
 			for (int j=0;j<dy;j++) {
 				if (monT[i][j]==3) {
@@ -201,24 +204,53 @@ public class Bruit {
 				}
 			}
 		}
-		monT=lissage(dx, dy);
 		monT=copy_T(monT2, dx, dy);
-		for (int i=0;i<dx;i++) {
-			for (int j=0;j<dy;j++) {
-				if (monT[i][j]==2) {
-					int cpt1=0;
-					for (int i1=(i-1+dx)%dx;cpt1<3;cpt1++) {
-						int cpt2=0;
-						for (int j1=(j-1+dy)%dy;cpt2<3;cpt2++) {
-							if (monT[(i1+cpt1)%dx][(j1+cpt2)%dy] < monT[i][j])
-								monT[(i1+cpt1+dx)%dx][(j1+cpt2+dy)%dy]=1;
+		afficheTab(monT, dx, dy);
+		monT=lissage(dx, dy);
+		do {
+			for (int i=0;i<dx;i++) {
+				for (int j=0;j<dy;j++) {
+					if (monT[i][j]==2) {
+						int cpt1=0;
+						for (int i1=(i-1+dx)%dx;cpt1<3;cpt1++) {
+							int cpt2=0;
+							for (int j1=(j-1+dy)%dy;cpt2<3;cpt2++) {
+								if (monT[(i1+cpt1)%dx][(j1+cpt2)%dy] < monT[i][j]) {
+									monT2[(i1+cpt1+dx)%dx][(j1+cpt2+dy)%dy]=2;
+								}
+							}
 						}
+						monT2[i][j]=2;
 					}
-					monT[i][j]=2;
 				}
 			}
-		}
+			monT=copy_T(monT2, dx, dy);
+		}while(Math.random()<0.7);
+		monT=lissage(dx, dy);
+//		for (int i=0;i<dx;i++) {
+//			for (int j=0;j<dy;j++) {
+//				if (monT[i][j]==2) {
+//					int cpt1=0;
+//					for (int i1=(i-1+dx)%dx;cpt1<3;cpt1++) {
+//						int cpt2=0;
+//						for (int j1=(j-1+dy)%dy;cpt2<3;cpt2++) {
+//							if (monT[(i1+cpt1)%dx][(j1+cpt2)%dy] < monT[i][j])
+//								monT[(i1+cpt1+dx)%dx][(j1+cpt2+dy)%dy]=1;
+//						}
+//					}
+//					monT[i][j]=2;
+//				}
+//			}
+//		}
 	return 0;
+	}
+	public static void afficheTab(int[][] t,int dx, int dy) {
+		for (int i=0;i<dx;i++) {
+			for (int j=0;j<dy;j++) {
+				System.out.print(""+t[i][j]);				
+			}
+			System.out.println("");
+		}
 	}
 	public static int[][] copy_T(int[][] tab,int dx,int dy) {
 		int[][] t = new int[dx][dy];
@@ -233,21 +265,9 @@ public class Bruit {
 		int[][] t= copy_T(monT, dx, dy);
 		for (int i=0;i<dx;i++) {
 			for (int j=0;j<dy;j++) {
-				int cpt1=0;
-				int cpt=0;
-				for (int i1=(i-1+dx)%dx;cpt1<3;cpt1++) {
-					int cpt2=0;
-					for (int j1=(j-1+dy)%dy;cpt2<3;cpt2++) {
-						if (monT[i][j]==monT[i1][j1]) {
-							System.out.print(""+monT[i][j]+" "+monT[i1][j1]+"| ");
-							cpt+=1;
-						}
-					}
-					System.out.println("");
-				}
-				if (cpt==2) {
-					System.out.println("123--");
-					t[i][j]=Math.max(0,t[i][j]-1);
+				if (monT[(i+1+dx)%dy][j] < monT[i][j] && monT[(i-1+dx)%dy][j] < monT[i][j]
+						&& monT[i][(j+1+dy)%dy] < monT[i][j] && monT[i][(j-1+dy)%dy] < monT[i][j]) {
+					t[i][j]-=1;
 				}
 			}
 		}

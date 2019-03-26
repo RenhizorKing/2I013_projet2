@@ -292,92 +292,92 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 					}
 			}
 		}
-		for ( int i = a1 ; i < wx ; i++ ) {
-			for ( int j = a2 ; j < wy ; j++ ){
-					ArrayList<Object> array_m=Monde.getcarte_Ag();
-					for (int m=0;m<array_m.size();m++) {
-						if (array_m.get(m) instanceof M1 && ((M1)array_m.get(m)).getX()==i && ((M1)array_m.get(m)).getY()==j) {
-							M1 Hericendre = (M1)(array_m.get(m));
-							if(cpt_pas % 8 == 0) {
-								Hericendre.setSens();
-							}
-							if(Hericendre.getEvolution() == false) {
-								if ( Hericendre.getSens() == 0 ) { //va a gauche
-									g2.drawImage(PokemonFeuMove[2][pas],spriteLength*(i-a1) - SpriteDemo.marcher,spriteLength*(j-a2),spriteLength,spriteLength, frame);
-								}
-								if ( Hericendre.getSens() == 1 ) { //va a droite
-									g2.drawImage(PokemonFeuMove[3][pas],spriteLength*(i-a1) + SpriteDemo.marcher,spriteLength*(j-a2),spriteLength,spriteLength, frame);
-								}
-								if ( Hericendre.getSens() == 2 ) { //va en bas
-									g2.drawImage(PokemonFeuMove[0][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) + SpriteDemo.marcher,spriteLength,spriteLength, frame);
-								}
-								if ( Hericendre.getSens() == 3 ) { //va en haut
-									g2.drawImage(PokemonFeuMove[1][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) - SpriteDemo.marcher,spriteLength,spriteLength, frame);
-								}
-							}
-							if(Hericendre.getEvolution() == true) {
-								
-								Hericendre = (M1)(array_m.get(m));
-								if ( Hericendre.getSens() == 0 ) { //va a gauche
-									g2.drawImage(PokemonFeuEvolueMove[2][pas],spriteLength*(i-a1) - SpriteDemo.marcher,spriteLength*(j-a2),spriteLength,spriteLength, frame);
-								}
-								
-								if ( Hericendre.getSens() == 1 ) { //va a droite
-									g2.drawImage(PokemonFeuEvolueMove[3][pas],spriteLength*(i-a1) + SpriteDemo.marcher,spriteLength*(j-a2),spriteLength,spriteLength, frame);
-								}
-								if ( Hericendre.getSens() == 2 ) { //va en bas
-									g2.drawImage(PokemonFeuEvolueMove[0][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) + SpriteDemo.marcher,spriteLength,spriteLength, frame);
-								}
-								if ( Hericendre.getSens() == 3 ) { //va en haut
-									g2.drawImage(PokemonFeuEvolueMove[1][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) - SpriteDemo.marcher,spriteLength,spriteLength, frame);
-								}
-							}
-							continue;
-						}
-
-						if (array_m.get(m) instanceof M2 && ((M2)array_m.get(m)).getX()==i && ((M2)array_m.get(m)).getY()==j) {
-							M2 Carapuce = (M2)(array_m.get(m));
-							if(cpt_pas % 8 == 0) {
-								Carapuce.setSens();
-							}
-							if(Carapuce.getEvolution() == false) {
-								if ( Carapuce.getSens() == 0 ) { //va a gauche
-									g2.drawImage(PokemonEauMove[2][pas],spriteLength*(i-a1) - SpriteDemo.marcher,spriteLength*(j-a2),spriteLength,spriteLength, frame);
-								}
-								if ( Carapuce.getSens() == 1 ) { //va a droite
-									g2.drawImage(PokemonEauMove[3][pas],spriteLength*(i-a1) + SpriteDemo.marcher,spriteLength*(j-a2),spriteLength,spriteLength, frame);
-								}
-								if ( Carapuce.getSens() == 2 ) { //va en bas
-									g2.drawImage(PokemonEauMove[0][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) + SpriteDemo.marcher,spriteLength-5,spriteLength-5, frame);
-								}
-								if ( Carapuce.getSens() == 3 ) { //va en haut
-									g2.drawImage(PokemonEauMove[1][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) - SpriteDemo.marcher,spriteLength-5,spriteLength-5, frame);
-								}
-							}
-							if(Carapuce.getEvolution() == true) {
-								
-								Carapuce = (M2)(array_m.get(m));
-								if ( Carapuce.getSens() == 0 ) { //va a gauche
-									g2.drawImage(PokemonEauEvolueMove[2][pas],spriteLength*(i-a1) - SpriteDemo.marcher,spriteLength*(j-a2),spriteLength,spriteLength, frame);
-								}
-								
-								if ( Carapuce.getSens() == 1 ) { //va a droite
-									g2.drawImage(PokemonEauEvolueMove[3][pas],spriteLength*(i-a1) + SpriteDemo.marcher,spriteLength*(j-a2),spriteLength,spriteLength, frame);
-								}
-								if ( Carapuce.getSens() == 2 ) { //va en bas
-									g2.drawImage(PokemonEauEvolueMove[0][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) + SpriteDemo.marcher,spriteLength,spriteLength, frame);
-								}
-								if ( Carapuce.getSens() == 3 ) { //va en haut
-									g2.drawImage(PokemonEauEvolueMove[1][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) - SpriteDemo.marcher,spriteLength,spriteLength, frame);
-								}
-							}
-							continue;
-						}
-					
-						
-					}
-			}
-		}
+//		for ( int i = a1 ; i < wx ; i++ ) {
+//			for ( int j = a2 ; j < wy ; j++ ){
+//					ArrayList<Object> array_m=Monde.getcarte_Ag();
+//					for (int m=0;m<array_m.size();m++) {
+//						if (array_m.get(m) instanceof M1 && ((M1)array_m.get(m)).getX()==i && ((M1)array_m.get(m)).getY()==j) {
+//							M1 Hericendre = (M1)(array_m.get(m));
+//							if(cpt_pas % 8 == 0) {
+//								Hericendre.setSens();
+//							}
+//							if(Hericendre.getEvolution() == false) {
+//								if ( Hericendre.getSens() == 0 ) { //va a gauche
+//									g2.drawImage(PokemonFeuMove[2][pas],spriteLength*(i-a1) - SpriteDemo.marcher,spriteLength*(j-a2),spriteLength,spriteLength, frame);
+//								}
+//								if ( Hericendre.getSens() == 1 ) { //va a droite
+//									g2.drawImage(PokemonFeuMove[3][pas],spriteLength*(i-a1) + SpriteDemo.marcher,spriteLength*(j-a2),spriteLength,spriteLength, frame);
+//								}
+//								if ( Hericendre.getSens() == 2 ) { //va en bas
+//									g2.drawImage(PokemonFeuMove[0][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) + SpriteDemo.marcher,spriteLength,spriteLength, frame);
+//								}
+//								if ( Hericendre.getSens() == 3 ) { //va en haut
+//									g2.drawImage(PokemonFeuMove[1][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) - SpriteDemo.marcher,spriteLength,spriteLength, frame);
+//								}
+//							}
+//							if(Hericendre.getEvolution() == true) {
+//								
+//								Hericendre = (M1)(array_m.get(m));
+//								if ( Hericendre.getSens() == 0 ) { //va a gauche
+//									g2.drawImage(PokemonFeuEvolueMove[2][pas],spriteLength*(i-a1) - SpriteDemo.marcher,spriteLength*(j-a2),spriteLength,spriteLength, frame);
+//								}
+//								
+//								if ( Hericendre.getSens() == 1 ) { //va a droite
+//									g2.drawImage(PokemonFeuEvolueMove[3][pas],spriteLength*(i-a1) + SpriteDemo.marcher,spriteLength*(j-a2),spriteLength,spriteLength, frame);
+//								}
+//								if ( Hericendre.getSens() == 2 ) { //va en bas
+//									g2.drawImage(PokemonFeuEvolueMove[0][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) + SpriteDemo.marcher,spriteLength,spriteLength, frame);
+//								}
+//								if ( Hericendre.getSens() == 3 ) { //va en haut
+//									g2.drawImage(PokemonFeuEvolueMove[1][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) - SpriteDemo.marcher,spriteLength,spriteLength, frame);
+//								}
+//							}
+//							continue;
+//						}
+//
+//						if (array_m.get(m) instanceof M2 && ((M2)array_m.get(m)).getX()==i && ((M2)array_m.get(m)).getY()==j) {
+//							M2 Carapuce = (M2)(array_m.get(m));
+//							if(cpt_pas % 8 == 0) {
+//								Carapuce.setSens();
+//							}
+//							if(Carapuce.getEvolution() == false) {
+//								if ( Carapuce.getSens() == 0 ) { //va a gauche
+//									g2.drawImage(PokemonEauMove[2][pas],spriteLength*(i-a1) - SpriteDemo.marcher,spriteLength*(j-a2),spriteLength,spriteLength, frame);
+//								}
+//								if ( Carapuce.getSens() == 1 ) { //va a droite
+//									g2.drawImage(PokemonEauMove[3][pas],spriteLength*(i-a1) + SpriteDemo.marcher,spriteLength*(j-a2),spriteLength,spriteLength, frame);
+//								}
+//								if ( Carapuce.getSens() == 2 ) { //va en bas
+//									g2.drawImage(PokemonEauMove[0][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) + SpriteDemo.marcher,spriteLength-5,spriteLength-5, frame);
+//								}
+//								if ( Carapuce.getSens() == 3 ) { //va en haut
+//									g2.drawImage(PokemonEauMove[1][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) - SpriteDemo.marcher,spriteLength-5,spriteLength-5, frame);
+//								}
+//							}
+//							if(Carapuce.getEvolution() == true) {
+//								
+//								Carapuce = (M2)(array_m.get(m));
+//								if ( Carapuce.getSens() == 0 ) { //va a gauche
+//									g2.drawImage(PokemonEauEvolueMove[2][pas],spriteLength*(i-a1) - SpriteDemo.marcher,spriteLength*(j-a2),spriteLength,spriteLength, frame);
+//								}
+//								
+//								if ( Carapuce.getSens() == 1 ) { //va a droite
+//									g2.drawImage(PokemonEauEvolueMove[3][pas],spriteLength*(i-a1) + SpriteDemo.marcher,spriteLength*(j-a2),spriteLength,spriteLength, frame);
+//								}
+//								if ( Carapuce.getSens() == 2 ) { //va en bas
+//									g2.drawImage(PokemonEauEvolueMove[0][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) + SpriteDemo.marcher,spriteLength,spriteLength, frame);
+//								}
+//								if ( Carapuce.getSens() == 3 ) { //va en haut
+//									g2.drawImage(PokemonEauEvolueMove[1][pas],spriteLength*(i-a1) ,spriteLength*(j-a2) - SpriteDemo.marcher,spriteLength,spriteLength, frame);
+//								}
+//							}
+//							continue;
+//						}
+//					
+//						
+//					}
+//			}
+//		}
 	}
 	@Override
 	public void keyPressed(KeyEvent evmt) {
@@ -520,10 +520,10 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
     } 
 	
 	public static void main(String[] args) {
-		Monde monde = new Monde(dx=30,dy=18,30,30);
+		Monde monde = new Monde(dx=100,dy=100,0,30);
 		SpriteDemo a =new SpriteDemo();
 		Terrain terrain= new Terrain(dx,dy);
-		Bruit toto = new Bruit(dx,dy,10);
+		Bruit toto = new Bruit(dy,dx,10);
 		a.addKeyListener(a);
         a.addMouseListener(a);
         a.addMouseWheelListener(a);
@@ -544,7 +544,7 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
 				pas = 0;
 			}
 			if(cpt_pas % 8 == 0) {
-				monde.pomme_pop(step);
+				//monde.pomme_pop(step);
 				Pomme.duree();
 				Pomme.delete();
 				monde.Refresh();
