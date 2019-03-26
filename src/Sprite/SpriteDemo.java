@@ -523,10 +523,10 @@ public class SpriteDemo extends JPanel implements KeyListener,MouseListener,Mous
     } 
 	
 	public static void main(String[] args) {
-		Monde monde = new Monde(dx=100,dy=100,0,0);
+		Monde monde = new Monde(dx=50,dy=100,0,0);
 		SpriteDemo a =new SpriteDemo();
 		Terrain terrain= new Terrain(dx,dy);
-		Bruit toto = new Bruit(dy,dx,8);
+		Bruit toto = new Bruit(dx,dy,8);
 		a.addKeyListener(a);
         a.addMouseListener(a);
         a.addMouseWheelListener(a);

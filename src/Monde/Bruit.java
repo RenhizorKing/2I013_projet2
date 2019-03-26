@@ -153,31 +153,30 @@ public class Bruit {
 	}
 	
 	public static int bruit_P(int dx,int dy,int pic) {
-		//Bruit.a=new int[dx][dy];
-		monT=new int[dx][dy];
-		for (int i=0;i<dx;i++) {
-			for (int j=0;j<dy;j++) {
+		monT=new int[dy][dx];
+		for (int i=0;i<dy;i++) {
+			for (int j=0;j<dx;j++) {
 				monT[i][j]=0;
 			}
 		}
 		for (int i=0;i<pic;i++) {
 			int x1=((int) (Math.random()*dx));
 			int x2=((int) (Math.random()*dy));
-			monT[x1][x2]=3;
+			monT[x2][x1]=3;
 		}
 		int[][] monT2 = copy_T(monT, dx, dy);
 		int cpt=0;
 		do {
-			for (int i=0;i<dx;i++) {
-				for (int j=0;j<dy;j++) {
+			for (int i=0;i<dy;i++) {
+				for (int j=0;j<dx;j++) {
 					if (monT[i][j]==3) {
 						int cpt1=0;
-						for (int i1=(i-1+dx)%dx;cpt1<3;cpt1++) {
+						for (int i1=(i-1+dy)%dy;cpt1<3;cpt1++) {
 							int cpt2=0;
-							for (int j1=(j-1+dy)%dy;cpt2<3;cpt2++) {
-								if (monT[(i1+cpt1)%dx][(j1+cpt2)%dy] < monT[i][j]) {
+							for (int j1=(j-1+dx)%dx;cpt2<3;cpt2++) {
+								if (monT[(i1+cpt1)%dy][(j1+cpt2)%dx] < monT[i][j]) {
 									if (Math.random()<0.5)
-										monT2[(i1+cpt1+dx)%dx][(j1+cpt2+dy)%dy]=3;
+										monT2[(i1+cpt1+dy)%dy][(j1+cpt2+dx)%dx]=3;
 								}
 							}
 						}
@@ -189,15 +188,15 @@ public class Bruit {
 			cpt++;
 		}while((cpt <10+((int) Math.random()*5)));
 		monT=lissage(dx, dy);
-		for (int i=0;i<dx;i++) {
-			for (int j=0;j<dy;j++) {
+		for (int i=0;i<dy;i++) {
+			for (int j=0;j<dx;j++) {
 				if (monT[i][j]==3) {
 					int cpt1=0;
-					for (int i1=(i-1+dx)%dx;cpt1<3;cpt1++) {
+					for (int i1=(i-1+dy)%dy;cpt1<3;cpt1++) {
 						int cpt2=0;
-						for (int j1=(j-1+dy)%dy;cpt2<3;cpt2++) {
-							if (monT[(i1+cpt1)%dx][(j1+cpt2)%dy] < monT[i][j]) {
-									monT2[(i1+cpt1+dx)%dx][(j1+cpt2+dy)%dy]=2;
+						for (int j1=(j-1+dx)%dx;cpt2<3;cpt2++) {
+							if (monT[(i1+cpt1)%dy][(j1+cpt2)%dx] < monT[i][j]) {
+									monT2[(i1+cpt1+dy)%dy][(j1+cpt2+dx)%dx]=2;
 							}
 						}
 					}
@@ -207,17 +206,17 @@ public class Bruit {
 		}
 		monT=copy_T(monT2, dx, dy);
 		afficheTab(monT, dx, dy);
-		//monT=lissage(dx, dy);
+		//monT=lissage(d1, dy);
 		do {
-			for (int i=0;i<dx;i++) {
-				for (int j=0;j<dy;j++) {
+			for (int i=0;i<dy;i++) {
+				for (int j=0;j<dx;j++) {
 					if (monT[i][j]==2) {
 						int cpt1=0;
-						for (int i1=(i-1+dx)%dx;cpt1<3;cpt1++) {
+						for (int i1=(i-1+dy)%dy;cpt1<3;cpt1++) {
 							int cpt2=0;
-							for (int j1=(j-1+dy)%dy;cpt2<3;cpt2++) {
-								if (monT[(i1+cpt1)%dx][(j1+cpt2)%dy] < monT[i][j]) {
-									monT2[(i1+cpt1+dx)%dx][(j1+cpt2+dy)%dy]=2;
+							for (int j1=(j-1+dx)%dx;cpt2<3;cpt2++) {
+								if (monT[(i1+cpt1)%dy][(j1+cpt2)%dx] < monT[i][j]) {
+									monT2[(i1+cpt1+dy)%dy][(j1+cpt2+dx)%dx]=2;
 								}
 							}
 						}
@@ -229,15 +228,15 @@ public class Bruit {
 		}while(Math.random()<0.8);
 		monT=lissage(dx, dy);
 		monT=lissage2(dx,dy);
-		for (int i=0;i<dx;i++) {
-			for (int j=0;j<dy;j++) {
+		for (int i=0;i<dy;i++) {
+			for (int j=0;j<dx;j++) {
 				if (monT[i][j]==3) {
 					int cpt1=0;
-					for (int i1=(i-1+dx)%dx;cpt1<3;cpt1++) {
+					for (int i1=(i-1+dy)%dy;cpt1<3;cpt1++) {
 						int cpt2=0;
-						for (int j1=(j-1+dy)%dy;cpt2<3;cpt2++) {
-							if (monT[(i1+cpt1)%dx][(j1+cpt2)%dy] < monT[i][j]) {
-									monT2[(i1+cpt1+dx)%dx][(j1+cpt2+dy)%dy]=2;
+						for (int j1=(j-1+dx)%dx;cpt2<3;cpt2++) {
+							if (monT[(i1+cpt1)%dy][(j1+cpt2)%dx] < monT[i][j]) {
+									monT2[(i1+cpt1+dy)%dy][(j1+cpt2+dx)%dx]=2;
 							}
 						}
 					}
@@ -268,43 +267,43 @@ public class Bruit {
 	return 0;
 	}
 	public static void afficheTab(int[][] t,int dx, int dy) {
-		for (int i=0;i<dx;i++) {
-			for (int j=0;j<dy;j++) {
+		for (int i=0;i<dy;i++) {
+			for (int j=0;j<dx;j++) {
 				System.out.print(""+t[i][j]);				
 			}
 			System.out.println("");
 		}
 	}
 	public static int[][] copy_T(int[][] tab,int dx,int dy) {
-		int[][] t = new int[dx][dy];
-		for (int x=0;x<dx;x++) {
-			for (int y=0;y<dy;y++) {
-				t[x][y]=tab[x][y];
+		int[][] t = new int[dy][dx];
+		for (int y=0;y<dy;y++) {
+			for (int x=0;x<dx;x++) {
+				t[y][x]=tab[y][x];
 			}
 		}
 		return t;
 	}
 	public static int[][] lissage(int dx, int dy) {  //ajuster l'altitude
 		int[][] t= copy_T(monT, dx, dy);
-		for (int i=0;i<dx;i++) {
-			for (int j=0;j<dy;j++) {
+		for (int i=0;i<dy;i++) {
+			for (int j=0;j<dx;j++) {
 				int cpt1=0;
 				int cpt2=0;
-				if (monT[(i+1+dx)%dx][j] < monT[i][j])
+				if (monT[(i+1+dy)%dy][j] < monT[i][j])
 					cpt1+=1;
-				if (monT[(i+1+dx)%dx][j] > monT[i][j])
+				if (monT[(i+1+dy)%dy][j] > monT[i][j])
 					cpt2+=1;
-				if (monT[(i-1+dx)%dx][j] < monT[i][j])
+				if (monT[(i-1+dy)%dy][j] < monT[i][j])
 					cpt1+=1;
-				if (monT[(i-1+dx)%dx][j] > monT[i][j])
+				if (monT[(i-1+dy)%dy][j] > monT[i][j])
 					cpt2+=1;
-				if (monT[i][(j+1+dy)%dy] < monT[i][j])
+				if (monT[i][(j+1+dx)%dx] < monT[i][j])
 					cpt1+=1;
-				if (monT[i][(j+1+dy)%dy] > monT[i][j])
+				if (monT[i][(j+1+dx)%dx] > monT[i][j])
 					cpt2+=1;
-				if (monT[i][(j-1+dy)%dy] < monT[i][j])
+				if (monT[i][(j-1+dx)%dx] < monT[i][j])
 					cpt1+=1;
-				if (monT[i][(j-1+dy)%dy] > monT[i][j])
+				if (monT[i][(j-1+dx)%dx] > monT[i][j])
 					cpt2+=1;
 				if (cpt1==4)								 //efface les "pointe" d'altitue à 1 dim
 					t[i][j]-=1;
@@ -319,14 +318,14 @@ public class Bruit {
 	}
 	public static int[][] lissage2(int dx, int dy){   // etale l'altitue 3 (monT[i][j]=3 si monT[i][j]=2)
 		int[][] t= copy_T(monT, dx, dy);
-		for (int i=0;i<dx;i++) {
-			for (int j=0;j<dy;j++) {
+		for (int i=0;i<dy;i++) {
+			for (int j=0;j<dx;j++) {
 				if (monT[i][j]==2) {
 					int cpt=0;
 					int cpt1=0;
-					for (int i1=(i-3+dx)%dx;cpt1<6;cpt1++) {
+					for (int i1=(i-3+dy)%dy;cpt1<6;cpt1++) {
 						int cpt2=0;
-						for (int j1=(j-3+dy)%dy;cpt2<6;cpt2++) {
+						for (int j1=(j-3+dx)%dx;cpt2<6;cpt2++) {
 							if (monT[i1][j1] >monT[i][j])
 								cpt+=1;
 						}
@@ -344,34 +343,49 @@ public class Bruit {
 	
 	public static int[][] lissage3(int dx, int dy){ // ajout des jonction entre 2 parties de meme altitude pas trop loin
 		int[][] t = copy_T(monT, dx, dy);
-		for (int i=0;i<dx;i++) {
-			for (int j=0;j<dy;j++) {
+		for (int i=0;i<dy;i++) {
+			for (int j=0;j<dx;j++) {
 				if (monT[i][j]==2) {
-					if ((monT[(i+1+dx)%dx][j]==monT[(i-1+dx)%dx][j] ) 
-							&& (monT[(i+1+dx)%dx][j]>monT[i][j])) {
+					if ((monT[(i+1+dy)%dy][j]==monT[(i-1+dy)%dy][j] ) 
+							&& (monT[(i+1+dy)%dy][j]>monT[i][j])) {
 						t[i][j]+=1;
 					}
-					if ((monT[(i+2+dx)%dx][j]==monT[(i-1+dx)%dx][j] ) 
-							&& (monT[(i+2+dx)%dx][j]>monT[i][j])) {			//Parti Nord-Sud
+					if ((monT[(i+2+dy)%dy][j]==monT[(i-1+dy)%dy][j] ) 
+							&& (monT[(i+2+dy)%dy][j]>monT[i][j])) {			//Parti Nord-Sud
 						t[i][j]+=1;
 					}
-					if ((monT[(i+1+dx)%dx][j]==monT[(i-2+dx)%dx][j] ) 
-							&& (monT[(i+1+dx)%dx][j]>monT[i][j])) {
+					if ((monT[(i+1+dy)%dy][j]==monT[(i-2+dy)%dy][j] ) 
+							&& (monT[(i+1+dy)%dy][j]>monT[i][j])) {
 						t[i][j]+=1;
 					}
 					//-------------------------------------------------------
-					if ((monT[i][(j+1+dy)%dy]==monT[i][(j-1+dy)%dy] ) 
-							&& (monT[i][(j+1+dy)%dy]>monT[i][j])) {
+					if ((monT[i][(j+1+dx)%dx]==monT[i][(j-1+dx)%dx] ) 
+							&& (monT[i][(j+1+dx)%dx]>monT[i][j])) {
 						t[i][j]+=1;
 					}
-					if ((monT[i][(j+2+dy)%dy]==monT[i][(j-1+dy)%dy] ) 
-							&& (monT[i][(j+2+dy)%dy]>monT[i][j])) {			//Partie Est-Ouest
+					if ((monT[i][(j+2+dx)%dx]==monT[i][(j-1+dx)%dx] ) 
+							&& (monT[i][(j+2+dx)%dx]>monT[i][j])) {			//Partie Est-Ouest
 						//System.out.println(""+);
 						t[i][j]+=1;											
 					}
-					if ((monT[i][(j+1+dy)%dy]==monT[i][(j-2+dy)%dy] ) 
-							&& (monT[i][(j+1+dy)%dy]>monT[i][j])) {
+					if ((monT[i][(j+1+dx)%dx]==monT[i][(j-2+dx)%dx] ) 
+							&& (monT[i][(j+1+dx)%dx]>monT[i][j])) {
 						t[i][j]+=1;
+					}
+				}
+			}
+		}
+		return t;
+	}
+	
+	public int[][] lissage4(int dx,int dy){	//Arrondir les formes
+		int[][] t = copy_T(monT, dx, dy);
+		for (int i=0;i<dx;i++) {						//travail sur les x
+			for (int j=0;j<dy;j++) {
+				if (monT[i][j]==2) {
+					int i_min=0;
+					for (int x=0;x<dx;x++) {
+						
 					}
 				}
 			}
