@@ -187,7 +187,8 @@ public class Bruit {
 			}
 			monT=copy_T(monT2, dx, dy);
 			cpt++;
-		}while((Math.random()<0.85 || cpt<5) && cpt<dx/10);
+		}while((cpt <10+((int) Math.random()*5)));
+		monT=lissage(dx, dy);
 		for (int i=0;i<dx;i++) {
 			for (int j=0;j<dy;j++) {
 				if (monT[i][j]==3) {
@@ -227,6 +228,26 @@ public class Bruit {
 			monT=copy_T(monT2, dx, dy);
 		}while(Math.random()<0.8);
 		monT=lissage(dx, dy);
+		monT=lissage2(dx,dy);
+		for (int i=0;i<dx;i++) {
+			for (int j=0;j<dy;j++) {
+				if (monT[i][j]==3) {
+					int cpt1=0;
+					for (int i1=(i-1+dx)%dx;cpt1<3;cpt1++) {
+						int cpt2=0;
+						for (int j1=(j-1+dy)%dy;cpt2<3;cpt2++) {
+							if (monT[(i1+cpt1)%dx][(j1+cpt2)%dy] < monT[i][j]) {
+									monT2[(i1+cpt1+dx)%dx][(j1+cpt2+dy)%dy]=2;
+							}
+						}
+					}
+					monT2[i][j]=3;
+				}
+			}
+		}
+		monT=copy_T(monT2, dx, dy);
+		afficheTab(monT, dx, dy);
+		monT=lissage(dx, dy);
 //		for (int i=0;i<dx;i++) {
 //			for (int j=0;j<dy;j++) {
 //				if (monT[i][j]==2) {
@@ -265,15 +286,56 @@ public class Bruit {
 		int[][] t= copy_T(monT, dx, dy);
 		for (int i=0;i<dx;i++) {
 			for (int j=0;j<dy;j++) {
-				if (monT[(i+1+dx)%dy][j] < monT[i][j] && monT[(i-1+dx)%dy][j] < monT[i][j]
-						&& monT[i][(j+1+dy)%dy] < monT[i][j] && monT[i][(j-1+dy)%dy] < monT[i][j]) {
+				int cpt1=0;
+				int cpt2=0;
+				if (monT[(i+1+dx)%dy][j] < monT[i][j])
+					cpt1+=1;
+				if (monT[(i+1+dx)%dy][j] > monT[i][j])
+					cpt2+=1;
+				if (monT[(i-1+dx)%dy][j] < monT[i][j])
+					cpt1+=1;
+				if (monT[(i-1+dx)%dy][j] > monT[i][j])
+					cpt2+=1;
+				if (monT[i][(j+1+dy)%dy] < monT[i][j])
+					cpt1+=1;
+				if (monT[i][(j+1+dy)%dy] > monT[i][j])
+					cpt2+=1;
+				if (monT[i][(j-1+dy)%dy] < monT[i][j])
+					cpt1+=1;
+				if (monT[i][(j-1+dy)%dy] > monT[i][j])
+					cpt2+=1;
+				if (cpt1==4)
 					t[i][j]-=1;
+				if (cpt1==3 && Math.random()<0.7)
+					t[i][j]-=1;
+				if (cpt2>=3) {
+					t[i][j]+=1;
 				}
 			}
 		}
 		return t;
 	}
-	
+	public static int[][] lissage2(int dx, int dy){
+		int[][] t= copy_T(monT, dx, dy);
+		for (int i=0;i<dx;i++) {
+			for (int j=0;j<dy;j++) {
+				if (monT[i][j]==2) {
+					int cpt=0;
+					int cpt1=0;
+					for (int i1=(i-3+dx)%dx;cpt1<6;cpt1++) {
+						int cpt2=0;
+						for (int j1=(j-3+dy)%dy;cpt2<6;cpt2++) {
+							if (monT[i1][j1] >monT[i][j])
+								cpt+=1;
+						}
+					}
+					if (cpt>=0)
+						t[i][j]+=1;
+				}
+			}
+		}
+		return t;
+	}
 	public static void main(String[] args) {
 		Bruit toto = new Bruit(15,15,2);
 		//bruit_P(15,15);
