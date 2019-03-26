@@ -205,7 +205,7 @@ public class Bruit {
 			}
 		}
 		monT=copy_T(monT2, dx, dy);
-		afficheTab(monT, dx, dy);
+		//afficheTab(monT, dx, dy);
 		//monT=lissage(d1, dy);
 		do {
 			for (int i=0;i<dy;i++) {
@@ -246,9 +246,10 @@ public class Bruit {
 		}
 		monT=copy_T(monT2, dx, dy);
 		monT=lissage(dx, dy);
-		afficheTab(monT, dx, dy);
+		//afficheTab(monT, dx, dy);
 		monT=lissage3(dx, dy);
-		afficheTab(monT, dx, dy);
+		//afficheTab(monT, dx, dy);
+		monT=lissage4(dx,dy);
 //		for (int i=0;i<dx;i++) {
 //			for (int j=0;j<dy;j++) {
 //				if (monT[i][j]==2) {
@@ -335,9 +336,6 @@ public class Bruit {
 				}
 			}
 		}
-		System.out.println("");
-		System.out.println("---------------");
-		System.out.println("");
 		return t;
 	}
 	
@@ -378,18 +376,52 @@ public class Bruit {
 		return t;
 	}
 	
-	public int[][] lissage4(int dx,int dy){	//Arrondir les formes
+	public static int[][] lissage4(int dx,int dy){	//Arrondir les arc
 		int[][] t = copy_T(monT, dx, dy);
-		for (int i=0;i<dx;i++) {						//travail sur les x
+		for (int i=0;i<dx;i++) {						
 			for (int j=0;j<dy;j++) {
 				if (monT[i][j]==2) {
-					int i_min=0;
-					for (int x=0;x<dx;x++) {
-						
+					int cpt=0;
+					int cpt1=0;
+					for (int i1=(i-1+dy)%dy;cpt1<3;cpt1++) {
+						int cpt2=0;
+						for (int j1=(j-1+dx)%dx;cpt2<3;cpt2++) {
+							if (monT[i1][j1] > monT[i][j]) {
+								cpt+=1;								
+							}
+						}
+					}
+					if (cpt==4) { // angle droit
+						System.out.println("----------++++++++++++-------------oui");
+						int x_taille=0;
+						int y_taille=0;
+						int direction=0;
+						if (monT[i-1][j] > monT[i][j] && monT[i][j+1] > monT[i][j]) {		//Nord-Est
+							direction=1;
+						}
+						if (monT[i+1][j] > monT[i][j] && monT[i][j+1] > monT[i][j]) {		//Sud-Est
+							direction=2;
+						}
+						if (monT[i-1][j] > monT[i][j] && monT[i][j-1] > monT[i][j]) {		//Nord-Ouest
+							direction=3;
+						}
+						if (monT[i-1][j] > monT[i][j] && monT[i][j+1]> monT[i][j]) {		//Sud-Ouest
+							direction=4;
+						}
+						if (direction==1) {
+							while(monT[(i+x_taille+dy)%dy][(j+1+dx)%dx] == monT[i-1][j]) {
+								x_taille++;
+							}
+							while(monT[i][(j-y_taille+dy)%dy] == monT[i][j+1]) {
+								y_taille++;
+							}
+							System.out.println(""+x_taille+" "+y_taille);
+						}
 					}
 				}
 			}
 		}
+		System.exit(0);
 		return t;
 	}
 	public static void main(String[] args) {
