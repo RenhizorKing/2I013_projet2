@@ -18,10 +18,10 @@ public class Bruit {
 		bruit_P(dx, dy,pic);
 		try {
 //			bruit = ImageIO.read(new File("PERLINNOISE.jpeg"));
-//			a=new int[220][220];
+//			monT=new int[220][220];
 //			for (int i=0;i<bruit.getWidth();i++){
 //				for (int j=0;j<bruit.getHeight();j++){
-//					    a[i][j]=(bruit.getRGB(i, j) & 0x000000ff )/20;
+//					    monT[i][j]=(bruit.getRGB(i, j) & 0x000000ff )/20;
 //						//System.out.print(""+(bruit.getRGB(i, j) & 0x000000ff )/20+" ");
 //				}
 //				System.out.println();
@@ -225,7 +225,7 @@ public class Bruit {
 				}
 			}
 			monT=copy_T(monT2, dx, dy);
-		}while(Math.random()<0.7);
+		}while(Math.random()<0.8);
 		monT=lissage(dx, dy);
 //		for (int i=0;i<dx;i++) {
 //			for (int j=0;j<dy;j++) {
