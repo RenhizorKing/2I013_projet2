@@ -207,7 +207,7 @@ public class Bruit {
 		}
 		monT=copy_T(monT2, dx, dy);
 		afficheTab(monT, dx, dy);
-		monT=lissage(dx, dy);
+		//monT=lissage(dx, dy);
 		do {
 			for (int i=0;i<dx;i++) {
 				for (int j=0;j<dy;j++) {
@@ -246,8 +246,10 @@ public class Bruit {
 			}
 		}
 		monT=copy_T(monT2, dx, dy);
-		afficheTab(monT, dx, dy);
 		monT=lissage(dx, dy);
+		afficheTab(monT, dx, dy);
+		monT=lissage3(dx, dy);
+		afficheTab(monT, dx, dy);
 //		for (int i=0;i<dx;i++) {
 //			for (int j=0;j<dy;j++) {
 //				if (monT[i][j]==2) {
@@ -282,19 +284,19 @@ public class Bruit {
 		}
 		return t;
 	}
-	public static int[][] lissage(int dx, int dy) {
+	public static int[][] lissage(int dx, int dy) {  //ajuster l'altitude
 		int[][] t= copy_T(monT, dx, dy);
 		for (int i=0;i<dx;i++) {
 			for (int j=0;j<dy;j++) {
 				int cpt1=0;
 				int cpt2=0;
-				if (monT[(i+1+dx)%dy][j] < monT[i][j])
+				if (monT[(i+1+dx)%dx][j] < monT[i][j])
 					cpt1+=1;
-				if (monT[(i+1+dx)%dy][j] > monT[i][j])
+				if (monT[(i+1+dx)%dx][j] > monT[i][j])
 					cpt2+=1;
-				if (monT[(i-1+dx)%dy][j] < monT[i][j])
+				if (monT[(i-1+dx)%dx][j] < monT[i][j])
 					cpt1+=1;
-				if (monT[(i-1+dx)%dy][j] > monT[i][j])
+				if (monT[(i-1+dx)%dx][j] > monT[i][j])
 					cpt2+=1;
 				if (monT[i][(j+1+dy)%dy] < monT[i][j])
 					cpt1+=1;
@@ -304,18 +306,18 @@ public class Bruit {
 					cpt1+=1;
 				if (monT[i][(j-1+dy)%dy] > monT[i][j])
 					cpt2+=1;
-				if (cpt1==4)
+				if (cpt1==4)								 //efface les "pointe" d'altitue à 1 dim
 					t[i][j]-=1;
-				if (cpt1==3 && Math.random()<0.7)
+				if (cpt1==3 && Math.random()<0.7)			// efface les bouts d'altitude avec une proba
 					t[i][j]-=1;
-				if (cpt2>=3) {
+				if (cpt2>=3) {								// rehausse l'altitude si il y un "puit"
 					t[i][j]+=1;
 				}
 			}
 		}
 		return t;
 	}
-	public static int[][] lissage2(int dx, int dy){
+	public static int[][] lissage2(int dx, int dy){   // etale l'altitue 3 (monT[i][j]=3 si monT[i][j]=2)
 		int[][] t= copy_T(monT, dx, dy);
 		for (int i=0;i<dx;i++) {
 			for (int j=0;j<dy;j++) {
@@ -331,6 +333,46 @@ public class Bruit {
 					}
 					if (cpt>=0)
 						t[i][j]+=1;
+				}
+			}
+		}
+		System.out.println("");
+		System.out.println("---------------");
+		System.out.println("");
+		return t;
+	}
+	
+	public static int[][] lissage3(int dx, int dy){ // ajout des jonction entre 2 parties de meme altitude pas trop loin
+		int[][] t = copy_T(monT, dx, dy);
+		for (int i=0;i<dx;i++) {
+			for (int j=0;j<dy;j++) {
+				if (monT[i][j]==2) {
+					if ((monT[(i+1+dx)%dx][j]==monT[(i-1+dx)%dx][j] ) 
+							&& (monT[(i+1+dx)%dx][j]>monT[i][j])) {
+						t[i][j]+=1;
+					}
+					if ((monT[(i+2+dx)%dx][j]==monT[(i-1+dx)%dx][j] ) 
+							&& (monT[(i+2+dx)%dx][j]>monT[i][j])) {			//Parti Nord-Sud
+						t[i][j]+=1;
+					}
+					if ((monT[(i+1+dx)%dx][j]==monT[(i-2+dx)%dx][j] ) 
+							&& (monT[(i+1+dx)%dx][j]>monT[i][j])) {
+						t[i][j]+=1;
+					}
+					//-------------------------------------------------------
+					if ((monT[i][(j+1+dy)%dy]==monT[i][(j-1+dy)%dy] ) 
+							&& (monT[i][(j+1+dy)%dy]>monT[i][j])) {
+						t[i][j]+=1;
+					}
+					if ((monT[i][(j+2+dy)%dy]==monT[i][(j-1+dy)%dy] ) 
+							&& (monT[i][(j+2+dy)%dy]>monT[i][j])) {			//Partie Est-Ouest
+						//System.out.println(""+);
+						t[i][j]+=1;											
+					}
+					if ((monT[i][(j+1+dy)%dy]==monT[i][(j-2+dy)%dy] ) 
+							&& (monT[i][(j+1+dy)%dy]>monT[i][j])) {
+						t[i][j]+=1;
+					}
 				}
 			}
 		}
