@@ -327,7 +327,7 @@ public class Bruit {
 					for (int i1=(i-3+dy)%dy;cpt1<6;cpt1++) {
 						int cpt2=0;
 						for (int j1=(j-3+dx)%dx;cpt2<6;cpt2++) {
-							if (monT[i1][j1] >monT[i][j])
+							if (monT[(i1+cpt1+dy)%dy][(j1+cpt2+dx)%dx] >monT[i][j])
 								cpt+=1;
 						}
 					}
@@ -378,50 +378,103 @@ public class Bruit {
 	
 	public static int[][] lissage4(int dx,int dy){	//Arrondir les arc
 		int[][] t = copy_T(monT, dx, dy);
-		for (int i=0;i<dx;i++) {						
-			for (int j=0;j<dy;j++) {
+		for (int i=0;i<dy;i++) {						
+			for (int j=0;j<dx;j++) {
 				if (monT[i][j]==2) {
 					int cpt=0;
 					int cpt1=0;
 					for (int i1=(i-1+dy)%dy;cpt1<3;cpt1++) {
 						int cpt2=0;
 						for (int j1=(j-1+dx)%dx;cpt2<3;cpt2++) {
-							if (monT[i1][j1] > monT[i][j]) {
+							if (monT[(i1+cpt1+dy)%dy][(j1+cpt2+dx)%dx] > monT[i][j]) {
 								cpt+=1;								
 							}
 						}
 					}
-					if (cpt==4) { // angle droit
-						System.out.println("----------++++++++++++-------------oui");
+					if (cpt==4 || cpt==5) { // angle droit
 						int x_taille=0;
 						int y_taille=0;
 						int direction=0;
-						if (monT[i-1][j] > monT[i][j] && monT[i][j+1] > monT[i][j]) {		//Nord-Est
+						if (monT[(i-1+dy)%dy][j] > monT[i][j] && monT[i][(j+1+dx)%dx] > monT[i][j] && monT[(i-1+dy)%dy][j] == monT[i][(j+1+dx)%dx]) {		//Nord-Est
 							direction=1;
 						}
-						if (monT[i+1][j] > monT[i][j] && monT[i][j+1] > monT[i][j]) {		//Sud-Est
+						if (monT[(i+1+dy)%dy][j] > monT[i][j] && monT[i][(j+1+dx)%dx] > monT[i][j] && monT[(i+1+dy)%dy][j] == monT[i][(j+1+dx)%dx]) {		//Sud-Est
 							direction=2;
 						}
-						if (monT[i-1][j] > monT[i][j] && monT[i][j-1] > monT[i][j]) {		//Nord-Ouest
+						if (monT[(i-1+dy)%dy][j] > monT[i][j] && monT[i][(j-1+dx)%dx] > monT[i][j] && monT[(i-1+dy)%dy][j] == monT[i][(j-1+dx)%dx]) {		//Nord-Ouest
 							direction=3;
 						}
-						if (monT[i-1][j] > monT[i][j] && monT[i][j+1]> monT[i][j]) {		//Sud-Ouest
+						if (monT[(i+1+dy)%dy][j] > monT[i][j] && monT[i][(j-1+dx)%dx] > monT[i][j] && monT[(i+1+dy)%dy][j] == monT[i][(j-1+dx)%dx]) {		//Sud-Ouest
 							direction=4;
 						}
 						if (direction==1) {
-							while(monT[(i+x_taille+dy)%dy][(j+1+dx)%dx] == monT[i-1][j]) {
+							while (monT[i][(j-x_taille+dx)%dx] == monT[i][j]) {
 								x_taille++;
 							}
-							while(monT[i][(j-y_taille+dy)%dy] == monT[i][j+1]) {
+							while (monT[(i+y_taille)%dy][j] == monT[i][j]) {
 								y_taille++;
 							}
-							System.out.println(""+x_taille+" "+y_taille);
+							if (x_taille>=5 && y_taille>=5) {
+								System.out.println(""+i+" "+j);
+								t[i][j]=3;
+								//if (x_taille>=y_taille) {
+									System.out.println("--------------------");
+									int cpt1_b=0;
+									for (int n1=i;cpt1_b < y_taille;cpt1_b++) {
+										int cpt2_b=0;
+										for (int n2=j;cpt2_b < x_taille;cpt2_b++) {
+											t[(n1+cpt1_b+dy)%dy][(n2-cpt2_b+dx)%dx]=3;
+										}
+										x_taille-=3;
+									}
+									//t[i][j]=0;
+//								}else {
+//									System.out.println("+++++++++++++++++++++++");
+//									for (int j_bis=j;j-j_bis<x_taille;j_bis--) {
+//										for (int i_bis=i;i_bis-i<y_taille;i_bis++) {
+//											monT[(i_bis+dy)%dy][(j_bis+dx)%dx]=3;
+//										}
+//									}
+//								}
+							}
+						}
+						if (direction==2) {
+							while(monT[i][(j-x_taille+dx)%dx] == monT[i][j]) {
+								x_taille++;
+							}
+							while(monT[(i-y_taille+dy)%dy][j] == monT[i][j]) {
+								y_taille++;
+							}
+							if (x_taille>=5 && y_taille>=5) {
+								
+							}
+						}
+						if (direction==3) {
+							while (monT[i][(j+x_taille+dx)%dx] == monT[i][j]) {
+								x_taille++;
+							}
+							while (monT[(i+y_taille)%dy][j] == monT[i][j]) {
+								y_taille++;
+							}
+							if (x_taille>=5 && y_taille>=5) {
+
+							}
+						}
+						if (direction==4) {
+							while (monT[(i-1+dy)%dy][(j+x_taille+dx)%dx] == monT[i][j]) {
+								x_taille++;
+							}
+							while(monT[(i-y_taille+dy)%dy][(j+1+dx)%dx] == monT[i][j]) {
+								y_taille++;
+							}
+							if (x_taille>=5 && y_taille>=5) {
+								//System.out.println(""+x_taille+" "+y_taille);								
+							}
 						}
 					}
 				}
 			}
 		}
-		System.exit(0);
 		return t;
 	}
 	public static void main(String[] args) {
