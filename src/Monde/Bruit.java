@@ -16,6 +16,7 @@ public class Bruit {
 	
 	public Bruit(int dx,int dy){
 		int pic= Math.max(Math.min(dx, dy)/10-2 + ((int) (Math.random()*(4))),1);
+		pic =dx/13;
 		System.out.println(""+pic);
 		bruit_P(dx, dy,pic);
 		try {
@@ -188,7 +189,7 @@ public class Bruit {
 			}
 			monT=copy_T(monT2, dx, dy);
 			cpt++;
-		}while((cpt <10+((int) Math.random()*5)));
+		}while((cpt <pic+2+((int) Math.random()*5)));
 		monT=lissage(dx, dy);
 		for (int i=0;i<dy;i++) {
 			for (int j=0;j<dx;j++) {
@@ -252,6 +253,29 @@ public class Bruit {
 		monT=lissage3(dx, dy);
 		//afficheTab(monT, dx, dy);
 		monT=lissage4(dx,dy);
+		
+		monT2 = copy_T(monT, dx, dy);
+		do {
+			for (int i=0;i<dy;i++) {
+				for (int j=0;j<dx;j++) {
+					if (monT[i][j]==2) {
+						int cpt1=0;
+						for (int i1=(i-1+dy)%dy;cpt1<3;cpt1++) {
+							int cpt2=0;
+							for (int j1=(j-1+dx)%dx;cpt2<3;cpt2++) {
+								if (monT[(i1+cpt1)%dy][(j1+cpt2)%dx] < monT[i][j] && Math.random()<0.6) {
+									monT2[(i1+cpt1+dy)%dy][(j1+cpt2+dx)%dx]=2;
+								}
+							}
+						}
+						monT2[i][j]=2;
+					}
+				}
+			}
+			monT=copy_T(monT2, dx, dy);
+		}while(Math.random()<0.8);
+		monT=lissage(dx, dy);
+		
 //		for (int i=0;i<dx;i++) {
 //			for (int j=0;j<dy;j++) {
 //				if (monT[i][j]==2) {
@@ -310,7 +334,7 @@ public class Bruit {
 					cpt2+=1;
 				if (cpt1==4)								 //efface les "pointe" d'altitue à 1 dim
 					t[i][j]-=1;
-				if (cpt1==3 && Math.random()<0.7)			// efface les bouts d'altitude avec une proba
+				if (cpt1==3 && Math.random()<0.9)			// efface les bouts d'altitude avec une proba
 					t[i][j]-=1;
 				if (cpt2>=3) {								// rehausse l'altitude si il y un "puit"
 					t[i][j]+=1;
