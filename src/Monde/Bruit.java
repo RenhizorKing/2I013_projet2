@@ -422,8 +422,8 @@ public class Bruit {
 									int cpt1_b=0;
 									for (int n1=i;cpt1_b < y_taille;cpt1_b++) {
 										int cpt2_b=0;
-										for (int n2=j;cpt2_b < x_taille;cpt2_b++) {
-											t[(n1+cpt1_b+dy)%dy][(n2-cpt2_b+dx)%dx]=3;
+										for (int n2=j;cpt2_b < x_taille-1;cpt2_b++) {
+											t[(i+cpt1_b+dy)%dy][(j-cpt2_b+dx)%dx]=3;
 										}
 										x_taille-=3;
 									}
@@ -448,7 +448,30 @@ public class Bruit {
 								y_taille++;
 							}
 							if (x_taille>=5 && y_taille>=5) {
-								
+
+								System.out.println(""+i+" "+j);
+								if (x_taille>=y_taille) {
+									System.out.println("--------------------");
+									int cpt1_b=0;
+									for (int n1=i;cpt1_b < y_taille;cpt1_b++) {
+										int cpt2_b=0;
+										for (int n2=j;cpt2_b < x_taille-1;cpt2_b++) {
+											t[(i-cpt1_b+dy)%dy][(j-cpt2_b+dx)%dx]=3;
+										}
+										x_taille-=2;
+									}
+								}else {
+									System.out.println("+++++++++++++++++++++++");
+									int cpt2_b=0;
+									for (int n2=j;cpt2_b<x_taille;cpt2_b++) {
+										int cpt1_b=0;
+										for (int n1=i;cpt1_b<y_taille-1;cpt1_b++) {
+											t[(i-cpt1_b+dy)%dy][(j-cpt2_b+dx)%dx]=3;
+										}
+										y_taille-=3;
+									}
+								}
+							
 							}
 						}
 						if (direction==3) {
@@ -459,7 +482,29 @@ public class Bruit {
 								y_taille++;
 							}
 							if (x_taille>=5 && y_taille>=5) {
-
+								System.out.println(""+i+" "+j);
+								t[i][j]=3;
+								if (x_taille>=y_taille) {
+									System.out.println("--------------------");
+									int cpt1_b=0;
+									for (int n1=i;cpt1_b < y_taille;cpt1_b++) {
+										int cpt2_b=0;
+										for (int n2=j;cpt2_b < x_taille-1;cpt2_b++) {
+											t[(i+cpt1_b+dy)%dy][(j+cpt2_b+dx)%dx]=3;
+										}
+										x_taille-=3;
+									}
+								}else {
+									System.out.println("+++++++++++++++++++++++");
+									int cpt2_b=0;
+									for (int n2=j;cpt2_b<x_taille;cpt2_b++) {
+										int cpt1_b=0;
+										for (int n1=i;cpt1_b<y_taille-1;cpt1_b++) {
+											t[(i+cpt1_b+dy)%dy][(j+cpt2_b+dx)%dx]=3;
+										}
+										y_taille-=3;
+									}
+								}
 							}
 						}
 						if (direction==4) {
@@ -470,7 +515,30 @@ public class Bruit {
 								y_taille++;
 							}
 							if (x_taille>=5 && y_taille>=5) {
-								//System.out.println(""+x_taille+" "+y_taille);								
+
+								System.out.println(""+i+" "+j);
+								if (x_taille>=y_taille) {
+									System.out.println("--------------------");
+									int cpt1_b=0;
+									for (int n1=i;cpt1_b < y_taille;cpt1_b++) {
+										int cpt2_b=0;
+										for (int n2=j;cpt2_b < x_taille-1;cpt2_b++) {
+											t[(i+cpt1_b+dy)%dy][(j-cpt2_b+dx)%dx]=3;
+										}
+										x_taille-=2;
+									}
+								}else {
+									System.out.println("+++++++++++++++++++++++");
+									int cpt2_b=0;
+									for (int n2=j;cpt2_b<x_taille;cpt2_b++) {
+										int cpt1_b=0;
+										for (int n1=i;cpt1_b<y_taille-1;cpt1_b++) {
+											t[(i+cpt1_b+dy)%dy][(j-cpt2_b+dx)%dx]=3;
+										}
+										y_taille-=3;
+									}
+								}
+							
 							}
 						}
 					}
@@ -479,12 +547,12 @@ public class Bruit {
 		}
 		for (int i=0;i<dy;i++) {
 			for (int j=0;j<dx;j++) {
-				if (monT[i][j]==3) {
+				if (t[i][j]==3) {
 					int cpt1=0;
 					for (int i1=(i-1+dy)%dy;cpt1<3;cpt1++) {
 						int cpt2=0;
 						for (int j1=(j-1+dx)%dx;cpt2<3;cpt2++) {
-							if (monT[(i1+cpt1)%dy][(j1+cpt2)%dx] < monT[i][j]) {
+							if (t[(i1+cpt1)%dy][(j1+cpt2)%dx] < t[i][j]) {
 									t[(i1+cpt1+dy)%dy][(j1+cpt2+dx)%dx]=2;
 							}
 						}
