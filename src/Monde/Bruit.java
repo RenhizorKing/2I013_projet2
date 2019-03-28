@@ -334,7 +334,7 @@ public class Bruit {
 					cpt2+=1;
 				if (cpt1==4)								 //efface les "pointe" d'altitue à 1 dim
 					t[i][j]-=1;
-				if (cpt1==3 && Math.random()<0.9)			// efface les bouts d'altitude avec une proba
+				if (cpt1==3 && Math.random()<0.8)			// efface les bouts d'altitude avec une proba
 					t[i][j]-=1;
 				if (cpt2>=3) {								// rehausse l'altitude si il y un "puit"
 					t[i][j]+=1;
