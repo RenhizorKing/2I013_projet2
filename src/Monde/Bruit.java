@@ -14,7 +14,9 @@ public class Bruit {
 	public static int [][] monT;
 	static BufferedImage bruit;
 	
-	public Bruit(int dx,int dy,int pic){
+	public Bruit(int dx,int dy){
+		int pic= Math.max(Math.min(dx, dy)/10-2 + ((int) (Math.random()*(4))),1);
+		System.out.println(""+pic);
 		bruit_P(dx, dy,pic);
 		try {
 //			bruit = ImageIO.read(new File("PERLINNOISE.jpeg"));
@@ -564,7 +566,7 @@ public class Bruit {
 		return t;
 	}
 	public static void main(String[] args) {
-		Bruit toto = new Bruit(15,15,2);
+		Bruit toto = new Bruit(15,15);
 		//bruit_P(15,15);
 		for (int i=0;i<15;i++) {
 			for (int j=0;j<15;j++) {
